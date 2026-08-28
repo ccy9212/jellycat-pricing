@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1C1A22">
+<title>JC 代購定價</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1C1A22;
+  --ink-60:#5B5750;
+  --ink-40:#8A857C;
+  --paper:#FFFFFF;
+  --wash:#F0EDE7;
+  --line:#E4DFD6;
+  --accent:#D6006E;
+  --accent-soft:#FCE4F0;
+  --gain:#0E7A5F;
+  --gain-soft:#DFF1EA;
+  --blue:#547585;
+  --blue-ink:#3F5F6E;
+  --sky:#DEE7ED;
+  --sky-line:#C2CFD9;
+  --sky-ink-60:#4C6375;
+  --sky-ink-40:#68798A;
+  --warn:#B4341C;
+  --r:14px;
+  --num:"Archivo","Noto Sans TC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"Noto Sans TC",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--wash);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.5;
+  padding:0 0 env(safe-area-inset-bottom);
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 48px}
+
+/* ── header ── */
+header{display:flex;align-items:baseline;gap:10px;margin:4px 0 20px}
+h1{
+  font-family:var(--num);font-weight:800;font-size:20px;letter-spacing:-.02em;
+  margin:0;
+}
+h1 .mark{color:var(--blue)}
+header .sub{font-size:12px;color:var(--ink-40);letter-spacing:.04em}
+
+/* ── layout ── */
+.grid{display:grid;gap:16px}
+@media(min-width:860px){
+  .grid{grid-template-columns:1fr 400px;align-items:start}
+  .result-col{position:sticky;top:20px}
+}
+
+.card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:18px 16px;
+}
+.card + .card{margin-top:16px}
+
+.eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.12em;
+  color:var(--ink-40);text-transform:uppercase;
+  margin:0 0 12px;
+}
+
+/* ── currency pills ── */
+.pills{display:flex;gap:6px;flex-wrap:wrap}
+.pill{
+  flex:1 1 0;min-width:60px;
+  appearance:none;border:1px solid var(--line);background:var(--paper);
+  border-radius:10px;padding:9px 4px;cursor:pointer;
+  font-family:var(--num);font-weight:600;font-size:14px;color:var(--ink-60);
+  transition:background .12s,border-color .12s,color .12s;
+}
+.pill:hover{border-color:#BFB8AC}
+.pill[aria-pressed="true"]{
+  background:var(--blue);border-color:var(--blue);color:#fff;
+}
+.pill small{display:block;font-family:var(--body);font-size:10px;font-weight:400;opacity:.7;margin-top:1px}
+
+/* ── fields ── */
+.field{margin-top:16px}
+.field label{
+  display:block;font-size:12px;font-weight:500;color:var(--ink-60);
+  margin-bottom:6px;
+}
+.inputbox{
+  display:flex;align-items:center;gap:8px;
+  border:1px solid var(--line);border-radius:12px;background:var(--paper);
+  padding:0 14px;
+  transition:border-color .12s,box-shadow .12s;
+}
+.inputbox:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px var(--sky)}
+.inputbox .sym{
+  font-family:var(--num);font-weight:600;font-size:17px;color:var(--ink-40);
+  flex:none;
+}
+.inputbox input{
+  flex:1;width:100%;min-width:0;border:0;outline:0;background:transparent;
+  font-family:var(--num);font-weight:600;color:var(--ink);
+  padding:12px 0;
+}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield}
+
+.big input{font-size:30px;letter-spacing:-.02em;padding:14px 0}
+.big .sym{font-size:22px}
+.hint{font-size:11px;color:var(--ink-40);margin:6px 2px 0}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.small input{font-size:17px}
+
+/* ── channel ── */
+.chan{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+@media(min-width:520px){.chan{grid-template-columns:repeat(4,1fr)}}
+.chan .pill{font-size:13px;padding:10px 6px;text-align:center;line-height:1.25}
+.chan .pill b{display:block;font-family:var(--body);font-weight:500;font-size:13px}
+.chan .pill i{
+  display:block;font-family:var(--num);font-style:normal;font-weight:800;
+  font-size:15px;margin-top:2px;
+}
+
+/* ── result ── */
+.result{
+  background:var(--sky);color:var(--ink);
+  border:1px solid var(--sky-line);
+  padding:22px 18px 18px;
+}
+.result .eyebrow{color:var(--sky-ink-40)}
+.price{
+  font-family:var(--num);font-weight:800;letter-spacing:-.035em;
+  font-size:clamp(46px,13vw,62px);line-height:1;
+  display:flex;align-items:baseline;gap:6px;
+}
+.price .cur{font-size:.42em;font-weight:600;letter-spacing:0;color:var(--sky-ink-40)}
+.raw{font-size:12px;color:var(--sky-ink-40);margin-top:8px}
+
+/* stacked bar — the signature */
+.bar{
+  display:flex;height:12px;border-radius:6px;overflow:hidden;
+  margin:18px 0 10px;background:rgba(23,53,88,.10);
+}
+.bar span{transition:flex-grow .25s ease}
+.seg-cost{background:#8598A6}
+.seg-fee{background:var(--accent)}
+.seg-profit{background:var(--gain)}
+
+.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.legend div{font-size:11px;color:var(--sky-ink-60)}
+.legend .k{display:flex;align-items:center;gap:5px}
+.legend .dot{width:7px;height:7px;border-radius:2px;flex:none}
+.legend .v{
+  font-family:var(--num);font-weight:700;font-size:16px;color:var(--ink);
+  margin-top:3px;letter-spacing:-.01em;
+}
+
+.marginline{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:16px;padding-top:14px;border-top:1px solid var(--sky-line);
+  font-size:12px;color:var(--sky-ink-60);
+}
+.marginline b{font-family:var(--num);font-weight:800;font-size:17px;color:var(--gain)}
+
+.copy{
+  width:100%;margin-top:14px;appearance:none;cursor:pointer;
+  background:rgba(255,255,255,.72);border:1px solid var(--sky-line);
+  color:var(--ink);border-radius:10px;padding:11px;
+  font-family:var(--body);font-size:13px;font-weight:500;
+  transition:background .12s,border-color .12s;
+}
+.copy:hover{background:#fff;border-color:#A6B6C2}
+
+/* ── 結果卡片開合 ── */
+.rhead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.rhead .eyebrow{margin-bottom:12px}
+.toggle{
+  display:none;appearance:none;cursor:pointer;flex:none;
+  background:rgba(255,255,255,.55);border:1px solid var(--sky-line);
+  border-radius:999px;padding:5px 12px;margin-bottom:12px;
+  font-family:var(--body);font-size:12px;font-weight:500;color:var(--blue-ink);
+  align-items:center;gap:5px;
+}
+.toggle::after{
+  content:"";width:6px;height:6px;flex:none;
+  border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;
+  transform:rotate(-135deg) translate(-1px,-1px);
+  transition:transform .22s ease;
+}
+.toggle[aria-expanded="true"]::after{transform:rotate(45deg) translate(-2px,-2px)}
+
+/* ── 手機：結果固定在畫面底部 ── */
+@media(max-width:859px){
+  .wrap{padding-bottom:158px}
+  body.multi .wrap{padding-bottom:48px}
+  .result-col{
+    position:fixed;left:0;right:0;bottom:0;z-index:60;
+    display:flex;flex-direction:column-reverse;   /* 錯誤訊息移到卡片上方 */
+  }
+  .card.result{
+    border-radius:18px 18px 0 0;border-bottom:0;
+    box-shadow:0 -8px 28px rgba(40,55,70,.16);
+    padding:14px 16px calc(14px + env(safe-area-inset-bottom));
+    max-height:88vh;overflow-y:auto;
+  }
+  .rhead .eyebrow,.toggle{margin-bottom:6px}
+  .price{font-size:40px}
+  .toggle{display:inline-flex}
+  .detail{
+    max-height:0;opacity:0;overflow:hidden;
+    transition:max-height .3s ease,opacity .22s ease;
+  }
+  .detail.open{max-height:400px;opacity:1}
+  .copy{margin-top:10px;padding:12px}
+  #errBox{margin:0 12px 8px}
+}
+@media (prefers-reduced-motion:reduce){
+  .detail{transition:none}
+  .toggle::after{transition:none}
+}
+
+/* ── 多筆輸入與批次結果 ── */
+#multiInput{
+  width:100%;border:1px solid var(--line);border-radius:12px;background:var(--paper);
+  padding:12px 14px;outline:0;resize:vertical;min-height:120px;
+  font-family:var(--num);font-weight:500;font-size:16px;line-height:1.6;color:var(--ink);
+  transition:border-color .12s,box-shadow .12s;
+}
+#multiInput:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--sky)}
+#multiInput::placeholder{font-weight:400;color:#B4AEA4;font-size:14px}
+
+.copy2{
+  appearance:none;cursor:pointer;flex:none;
+  background:var(--sky);border:1px solid var(--sky-line);color:var(--blue-ink);
+  border-radius:999px;padding:6px 13px;margin-bottom:12px;
+  font-family:var(--body);font-size:12px;font-weight:500;
+  transition:background .12s;
+}
+.copy2:hover{background:#D2DDE5}
+
+.mtable{width:100%;border-collapse:collapse;font-family:var(--num)}
+.mtable th{
+  font-family:var(--body);font-size:11px;font-weight:500;color:var(--ink-40);
+  text-align:right;padding:0 0 8px;border-bottom:1px solid var(--line);
+}
+.mtable th:first-child{text-align:left}
+.mtable td{
+  font-size:15px;font-weight:600;text-align:right;padding:10px 0;
+  border-bottom:1px solid var(--line);
+}
+.mtable td:first-child{
+  font-family:var(--body);font-weight:400;font-size:13px;color:var(--ink-60);
+  text-align:left;padding-right:8px;
+}
+.mtable td.sell{color:var(--blue);cursor:pointer;font-weight:800}
+.mtable td.sell:hover{text-decoration:underline;text-underline-offset:3px}
+.mtable td.prof{color:var(--gain);font-weight:600;font-size:13px}
+.mtable tr.total td{
+  border-bottom:0;padding-top:12px;font-weight:800;
+}
+.mtable tr.total td:first-child{font-weight:500;color:var(--ink)}
+.mrow-bad td{color:var(--warn)!important;font-weight:500}
+.mempty{font-size:13px;color:var(--ink-40);padding:6px 0}
+@media(max-width:520px){
+  .mtable td{font-size:14px}
+  .mtable td:first-child{font-size:12px}
+}
+
+.err{
+  background:#FFF1EE;border:1px solid #F3C6BC;color:var(--warn);
+  border-radius:10px;padding:12px;font-size:13px;margin-top:12px;
+}
+
+/* rounding */
+.round{display:flex;gap:6px;margin-top:6px}
+.round .pill{font-family:var(--num);font-size:13px;padding:8px 4px}
+
+/* ── 匯率來源 ── */
+.ratehead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.ratehead label{margin:0}
+.modes{display:flex;gap:4px;flex:none}
+.mode{
+  appearance:none;border:1px solid var(--line);background:var(--paper);
+  border-radius:8px;padding:5px 9px;cursor:pointer;
+  font-family:var(--num);font-size:11px;font-weight:600;color:var(--ink-40);
+  transition:background .12s,border-color .12s,color .12s;
+}
+.mode[aria-pressed="true"]{background:var(--sky);border-color:var(--blue);color:var(--blue-ink)}
+.status{
+  display:flex;align-items:center;gap:6px;
+  margin:9px 2px 0;font-size:11px;color:var(--ink-40);
+}
+.status .dotlive{width:6px;height:6px;border-radius:50%;background:var(--ink-40);flex:none}
+.status.live .dotlive{background:var(--gain)}
+.status.warnstate .dotlive{background:var(--warn)}
+.status .txt{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.status button{
+  appearance:none;background:none;border:0;padding:0;margin-left:auto;flex:none;
+  color:var(--blue-ink);font-family:var(--body);font-size:11px;font-weight:500;
+  cursor:pointer;text-decoration:underline;text-underline-offset:2px;
+}
+.status button:disabled{color:var(--ink-40);cursor:default;text-decoration:none}
+
+footer{
+  margin-top:20px;font-size:11px;color:var(--ink-40);line-height:1.7;
+  padding:0 4px;
+}
+footer code{
+  font-family:var(--num);background:var(--paper);border:1px solid var(--line);
+  border-radius:5px;padding:1px 5px;font-size:11px;color:var(--ink-60);
+}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>JC<span class="mark">·</span>代購定價</h1>
+  <span class="sub">成本 → 台幣售價</span>
+</header>
+
+<div class="grid">
+
+  <!-- ═══ 輸入 ═══ -->
+  <div>
+    <div class="card">
+      <p class="eyebrow">下單幣別</p>
+      <div class="pills" id="curPills"></div>
+
+      <div class="field big" id="singleBox">
+        <div class="ratehead">
+          <label for="cost">商品成本</label>
+          <div class="modes" id="inputModes"></div>
+        </div>
+        <div class="inputbox">
+          <span class="sym" id="costSym">€</span>
+          <input id="cost" type="number" inputmode="decimal" step="any" value="35" placeholder="0">
+        </div>
+      </div>
+
+      <div class="field" id="multiBox" hidden>
+        <div class="ratehead">
+          <label for="multiInput">多筆成本</label>
+          <div class="modes" id="inputModes2"></div>
+        </div>
+        <textarea id="multiInput" rows="6" spellcheck="false"
+          placeholder="一行一筆，可加品項名稱：&#10;小兔子 35&#10;大象 42.5&#10;28"></textarea>
+        <p class="hint">一行一筆，或用逗號分隔。名稱寫在數字前面（選填）。</p>
+      </div>
+
+      <div class="field small" id="rateField">
+        <div class="ratehead">
+          <label for="rate">匯率（1 外幣 = ? 台幣）</label>
+          <div class="modes" id="modePills"></div>
+        </div>
+        <div class="inputbox">
+          <span class="sym">NT$</span>
+          <input id="rate" type="number" inputmode="decimal" step="any" value="38">
+        </div>
+        <div class="status" id="rateStatus">
+          <i class="dotlive"></i>
+          <span class="txt" id="statusText">連線台銀中…</span>
+          <button type="button" id="refreshBtn">更新</button>
+        </div>
+        <p class="hint" id="rateHint"></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="eyebrow">通路</p>
+      <div class="chan" id="chanPills"></div>
+
+      <div class="two field small">
+        <div>
+          <label for="margin">期望利潤率</label>
+          <div class="inputbox">
+            <input id="margin" type="number" inputmode="decimal" step="0.5" value="15">
+            <span class="sym">%</span>
+          </div>
+        </div>
+        <div>
+          <label for="fee">額外費用佔售價</label>
+          <div class="inputbox">
+            <input id="fee" type="number" inputmode="decimal" step="0.1" value="6.5">
+            <span class="sym">%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>售價進位</label>
+        <div class="round" id="roundPills"></div>
+      </div>
+    </div>
+
+    <div class="card" id="multiResult" hidden>
+      <div class="ratehead">
+        <p class="eyebrow" style="margin-bottom:12px">批次結果</p>
+        <button class="copy2" id="copyAllBtn" type="button">複製全部售價</button>
+      </div>
+      <div id="multiTable"></div>
+    </div>
+  </div>
+
+  <!-- ═══ 結果 ═══ -->
+  <div class="result-col">
+    <div class="card result">
+      <div class="rhead">
+        <p class="eyebrow">建議售價</p>
+        <button class="toggle" id="toggleBtn" type="button" aria-expanded="false">明細</button>
+      </div>
+      <div class="price"><span class="cur">NT$</span><span id="price">—</span></div>
+
+      <div class="detail" id="detail">
+      <p class="raw" id="raw"></p>
+
+      <div class="bar">
+        <span class="seg-cost"   id="segCost"   style="flex-grow:1"></span>
+        <span class="seg-fee"    id="segFee"    style="flex-grow:0"></span>
+        <span class="seg-profit" id="segProfit" style="flex-grow:0"></span>
+      </div>
+
+      <div class="legend">
+        <div>
+          <span class="k"><i class="dot seg-cost"></i>成本</span>
+          <div class="v" id="vCost">—</div>
+        </div>
+        <div>
+          <span class="k"><i class="dot seg-fee"></i>額外費用</span>
+          <div class="v" id="vFee">—</div>
+        </div>
+        <div>
+          <span class="k"><i class="dot seg-profit"></i>利潤</span>
+          <div class="v" id="vProfit">—</div>
+        </div>
+      </div>
+
+      <div class="marginline">
+        <span>實際利潤率（對成本＋費用）</span>
+        <b id="realMargin">—</b>
+      </div>
+      </div><!-- /detail -->
+
+      <button class="copy" id="copyBtn" type="button">複製報價</button>
+    </div>
+    <div id="errBox"></div>
+  </div>
+
+</div>
+
+<footer>
+  計價公式與 Excel 相同：<code>售價 = 成本×(1+利潤率) ÷ (1 − 額外費用率×(1+利潤率))</code>，
+  利潤以「成本＋額外費用」為基數。<br>
+  匯率為自訂固定值（美元 33、歐元 38、英鎊 43、人民幣 4.8、韓元 0.02），
+  每次開啟都一樣；單筆要用不同匯率時，直接在上面那格改數字即可，不影響下一次。
+</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ── 匯率設定：直接改這裡的數字即可 ── */
+  var CUR = {
+    EUR:{sym:"€",  name:"歐元",  rate:38,      dec:2},
+    USD:{sym:"$",  name:"美元",  rate:33,      dec:2},
+    GBP:{sym:"£",  name:"英鎊",  rate:43,      dec:2},
+    KRW:{sym:"₩",  name:"韓元",  rate:0.02,    dec:0},
+    CNY:{sym:"¥",  name:"人民幣", rate:4.8,     dec:2},
+    TWD:{sym:"NT$",name:"台幣",  rate:1,       dec:0}
+  };
+  /* 設為 true 可恢復自動抓台銀牌告 */
+  var AUTO_RATE = false;
+  var CHAN = [
+    {name:"官網下單",   margin:15},
+    {name:"集運自行下單", margin:20},
+    {name:"買手訂購",   margin:25},
+    {name:"自訂",       margin:null}
+  ];
+  var ROUND = [
+    {label:"不進位", step:0},
+    {label:"10",   step:10},
+    {label:"50",   step:50},
+    {label:"100",  step:100}
+  ];
+
+  var MODES = [
+    {key:"cash", label:"現金賣出"},
+    {key:"spot", label:"即期賣出"}
+  ];
+
+  var state = {cur:"EUR", chan:0, round:1, mode:0};
+  var live = null;      /* { EUR:{cash,spot}, ... } 台銀即時牌告 */
+  var liveStamp = "";   /* 台銀掛牌時間 */
+
+  var $ = function(id){ return document.getElementById(id); };
+  var cost=$("cost"), rate=$("rate"), margin=$("margin"), fee=$("fee");
+
+  function nt(n, d){
+    if(!isFinite(n)) return "—";
+    return n.toLocaleString("zh-TW",{minimumFractionDigits:d||0,maximumFractionDigits:d||0});
+  }
+
+  /* ── 數字滾動動畫 ── */
+  var REDUCED = window.matchMedia &&
+                window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var prev = {};   /* 每個欄位上一次的數值 */
+  var anim = {};   /* 進行中的動畫 */
+
+  function setNum(id, value, fmt){
+    var el = $(id);
+    if(!el) return;
+
+    if(!isFinite(value)){
+      if(anim[id]){ cancelAnimationFrame(anim[id]); anim[id] = null; }
+      prev[id] = null;
+      el.textContent = "—";
+      return;
+    }
+
+    var from = (typeof prev[id] === "number" && isFinite(prev[id])) ? prev[id] : null;
+    prev[id] = value;
+
+    /* 首次顯示、無動畫偏好，或差距極小 → 直接寫入 */
+    if(REDUCED || from === null || Math.abs(value - from) < 0.005){
+      if(anim[id]){ cancelAnimationFrame(anim[id]); anim[id] = null; }
+      el.textContent = fmt(value);
+      return;
+    }
+
+    if(anim[id]) cancelAnimationFrame(anim[id]);
+    var t0 = null, dur = 420;
+
+    function step(ts){
+      if(t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 3);          /* easeOutCubic */
+      el.textContent = fmt(from + (value - from) * e);
+      if(p < 1){
+        anim[id] = requestAnimationFrame(step);
+      } else {
+        anim[id] = null;
+        el.textContent = fmt(value);
+      }
+    }
+    anim[id] = requestAnimationFrame(step);
+  }
+
+  var fmt0 = function(v){ return nt(Math.round(v)); };
+  var fmtPct = function(v){ return v.toFixed(1) + "%"; };
+
+  /* ── build pills ── */
+  function buildPills(host, items, get, set, render){
+    host.innerHTML = "";
+    items.forEach(function(it, i){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "pill";
+      b.innerHTML = render(it, i);
+      b.setAttribute("aria-pressed", get() === i ? "true" : "false");
+      b.addEventListener("click", function(){
+        set(i);
+        Array.prototype.forEach.call(host.children, function(c, j){
+          c.setAttribute("aria-pressed", j === i ? "true" : "false");
+        });
+        refresh();
+      });
+      host.appendChild(b);
+    });
+  }
+
+  buildPills($("curPills"), Object.keys(CUR),
+    function(){ return Object.keys(CUR).indexOf(state.cur); },
+    function(i){
+      state.cur = Object.keys(CUR)[i];
+      var c = CUR[state.cur];
+      applyRate();
+      $("costSym").textContent = c.sym;
+      cost.setAttribute("step", state.cur === "KRW" ? "100" : "any");
+      $("rateField").style.display = state.cur === "TWD" ? "none" : "";
+    },
+    function(code){ return code + "<small>" + CUR[code].name + "</small>"; }
+  );
+
+  buildPills($("chanPills"), CHAN,
+    function(){ return state.chan; },
+    function(i){
+      state.chan = i;
+      if(CHAN[i].margin !== null){
+        margin.value = CHAN[i].margin;
+      } else {
+        /* 「自訂」＝ 把游標送到利潤率那格，直接改數字 */
+        margin.focus();
+        margin.select();
+      }
+      updateCustomLabel();
+    },
+    function(c, i){
+      return "<b>" + c.name + "</b><i" + (c.margin === null ? ' id="customVal"' : "") + ">" +
+             (c.margin === null ? "改%" : c.margin + "%") + "</i>";
+    }
+  );
+
+  /* 「自訂」按鈕上顯示目前的利潤率 */
+  function updateCustomLabel(){
+    var el = $("customVal");
+    if(!el) return;
+    var v = parseFloat(margin.value);
+    el.textContent = (state.chan === 3 && isFinite(v)) ? v + "%" : "改%";
+  }
+
+  buildPills($("roundPills"), ROUND,
+    function(){ return state.round; },
+    function(i){ state.round = i; },
+    function(r){ return r.label; }
+  );
+
+  /* ── 現金賣出 / 即期賣出 ── */
+  (function(){
+    var host = $("modePills");
+    MODES.forEach(function(m, i){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "mode";
+      b.textContent = m.label;
+      b.setAttribute("aria-pressed", state.mode === i ? "true" : "false");
+      b.addEventListener("click", function(){
+        state.mode = i;
+        Array.prototype.forEach.call(host.children, function(c, j){
+          c.setAttribute("aria-pressed", j === i ? "true" : "false");
+        });
+        applyRate();
+        refresh();
+        if(live){
+          setStatus("live", "台銀 " + m.label + (liveStamp ? " · " + liveStamp : ""), false);
+        }
+      });
+      host.appendChild(b);
+    });
+  })();
+
+  /* 把目前幣別＋目前模式的匯率填進輸入框 */
+  function applyRate(){
+    var code = state.cur;
+    if(code === "TWD") return;
+    var v = null;
+    if(live && live[code]) v = live[code][MODES[state.mode].key];
+    rate.value = (v && isFinite(v)) ? v : CUR[code].rate;
+  }
+
+  /* ── 台銀牌告匯率 ── */
+  var BOT_URL = "https://rate.bot.com.tw/xrt?Lang=zh-TW";
+  var PROXIES = [
+    function(u){ return "https://api.allorigins.win/raw?url=" + encodeURIComponent(u); },
+    function(u){ return "https://corsproxy.io/?url=" + encodeURIComponent(u); },
+    function(u){ return "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(u); }
+  ];
+
+  function setStatus(cls, text, busy){
+    var box = $("rateStatus");
+    box.className = "status" + (cls ? " " + cls : "");
+    $("statusText").textContent = text;
+    $("refreshBtn").disabled = !!busy;
+    $("refreshBtn").textContent = busy ? "更新中…" : "更新";
+  }
+
+  function num(s){
+    var v = parseFloat(String(s).replace(/[^\d.]/g, ""));
+    return (isFinite(v) && v > 0) ? v : null;
+  }
+
+  function parseBOT(html){
+    var doc = new DOMParser().parseFromString(html, "text/html");
+    var out = {}, found = 0;
+
+    Array.prototype.forEach.call(doc.querySelectorAll("tr"), function(tr){
+      var tds = tr.querySelectorAll("td");
+      if(tds.length < 5) return;
+      var m = (tds[0].textContent || "").match(/\(([A-Z]{3})\)/);
+      if(!m || !CUR[m[1]]) return;
+
+      /* 優先用 data-table 標記；抓不到才退回欄位順序 */
+      function pick(keyword, fallbackIdx){
+        for(var i = 0; i < tds.length; i++){
+          var tag = tds[i].getAttribute("data-table") || "";
+          if(tag.indexOf(keyword) >= 0){
+            var v = num(tds[i].textContent);
+            if(v) return v;
+          }
+        }
+        return tds[fallbackIdx] ? num(tds[fallbackIdx].textContent) : null;
+      }
+
+      var cash = pick("現金賣出", 2);
+      var spot = pick("即期賣出", 4);
+      if(cash || spot){
+        out[m[1]] = {cash: cash || spot, spot: spot || cash};
+        found++;
+      }
+    });
+
+    var t = (doc.body ? doc.body.textContent : "").match(/牌價最新掛牌時間[：:]\s*([\d\/]+\s*[\d:]*)/);
+    return found >= 3 ? {rates: out, stamp: t ? t[1].trim() : ""} : null;
+  }
+
+  function fetchRates(){
+    setStatus("", "連線台銀中…", true);
+    var i = 0;
+
+    function attempt(){
+      if(i >= PROXIES.length){
+        setStatus("warnstate", "連不到台銀，改用預設匯率（08/24）— 可手動修改", false);
+        return;
+      }
+      var url = PROXIES[i++](BOT_URL);
+      var ctrl = ("AbortController" in window) ? new AbortController() : null;
+      var timer = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 9000);
+
+      fetch(url, ctrl ? {signal: ctrl.signal} : undefined)
+        .then(function(r){
+          if(!r.ok) throw new Error(r.status);
+          return r.text();
+        })
+        .then(function(html){
+          clearTimeout(timer);
+          var parsed = parseBOT(html);
+          if(!parsed) throw new Error("parse");
+          live = parsed.rates;
+          liveStamp = parsed.stamp;
+          applyRate();
+          refresh();
+          setStatus("live", "台銀 " + MODES[state.mode].label +
+            (liveStamp ? " · " + liveStamp : ""), false);
+        })
+        .catch(function(){
+          clearTimeout(timer);
+          attempt();
+        });
+    }
+    attempt();
+  }
+
+  $("refreshBtn").addEventListener("click", fetchRates);
+
+  /* 匯率寫死時，收起自動更新相關的介面 */
+  function initFixed(){
+    $("rateStatus").style.display = "none";
+    $("modePills").style.display  = "none";
+  }
+
+  /* 手改利潤率 → 自動切到「自訂」，除非剛好等於某通路 */
+  margin.addEventListener("input", function(){
+    var v = parseFloat(margin.value);
+    var hit = -1;
+    CHAN.forEach(function(c,i){ if(c.margin === v) hit = i; });
+    state.chan = hit >= 0 ? hit : 3;
+    Array.prototype.forEach.call($("chanPills").children, function(c,j){
+      c.setAttribute("aria-pressed", j === state.chan ? "true" : "false");
+    });
+    updateCustomLabel();
+  });
+
+  /* ── core calculation (identical to the Excel model) ── */
+  function calc(){
+    var c   = parseFloat(cost.value);
+    var r   = state.cur === "TWD" ? 1 : parseFloat(rate.value);
+    var m   = parseFloat(margin.value) / 100;
+    var f   = parseFloat(fee.value) / 100;
+    var err = $("errBox");
+    err.innerHTML = "";
+
+    /* KRW 換算提示 */
+    $("rateHint").textContent = (state.cur === "KRW" && isFinite(r))
+      ? "≈ 每 1,000 韓元 " + nt(r * 1000, 2) + " 台幣"
+      : "";
+
+    if(!isFinite(c) || !isFinite(r) || !isFinite(m) || !isFinite(f) || c <= 0 || r <= 0){
+      blank(); return;
+    }
+
+    var denom = 1 - f * (1 + m);
+    if(denom <= 0){
+      blank();
+      err.innerHTML = '<div class="err">額外費用率太高，這組數字算不出售價。' +
+        '把「額外費用佔售價」降到 ' + nt(100 / (1 + m), 1) + '% 以下就可以。</div>';
+      return;
+    }
+
+    var costTwd = c * r;
+    var exact   = costTwd * (1 + m) / denom;
+
+    var step  = ROUND[state.round].step;
+    var final = step > 0 ? Math.ceil(exact / step) * step : Math.round(exact);
+
+    var feeAmt  = final * f;
+    var profit  = final - feeAmt - costTwd;
+    var realM   = profit / (costTwd + feeAmt);
+
+    setNum("price", final, fmt0);
+    $("raw").textContent   = "未進位 NT$" + nt(exact) +
+      "　·　成本 " + CUR[state.cur].sym + nt(c, CUR[state.cur].dec) +
+      (state.cur === "TWD" ? "" : " @ " + r);
+
+    $("segCost").style.flexGrow   = Math.max(costTwd, 0);
+    $("segFee").style.flexGrow    = Math.max(feeAmt, 0);
+    $("segProfit").style.flexGrow = Math.max(profit, 0);
+
+    setNum("vCost",   costTwd, fmt0);
+    setNum("vFee",    feeAmt,  fmt0);
+    setNum("vProfit", profit,  fmt0);
+    setNum("realMargin", realM * 100, fmtPct);
+
+    window.__quote = "$" + nt(final);
+  }
+
+  function blank(){
+    $("raw").textContent = "";
+    ["price","vCost","vFee","vProfit","realMargin"].forEach(function(id){
+      setNum(id, NaN, fmt0);
+    });
+    $("segCost").style.flexGrow = 1;
+    $("segFee").style.flexGrow = 0;
+    $("segProfit").style.flexGrow = 0;
+    window.__quote = "";
+  }
+
+  [cost, rate, margin, fee].forEach(function(el){
+    el.addEventListener("input", refresh);
+  });
+
+  function refresh(){ if(multiMode){ calcMulti(); } else { calc(); } }
+
+  /* ══════ 單筆 / 多筆 ══════ */
+  var multiMode = false;
+
+  (function(){
+    [$("inputModes"), $("inputModes2")].forEach(function(host){
+      ["單筆","多筆"].forEach(function(label, i){
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "mode";
+        b.textContent = label;
+        b.setAttribute("aria-pressed", (i === 1) === multiMode ? "true" : "false");
+        b.addEventListener("click", function(){ setMode(i === 1); });
+        host.appendChild(b);
+      });
+    });
+  })();
+
+  function setMode(on){
+    multiMode = on;
+    [$("inputModes"), $("inputModes2")].forEach(function(host){
+      Array.prototype.forEach.call(host.children, function(c, i){
+        c.setAttribute("aria-pressed", (i === 1) === on ? "true" : "false");
+      });
+    });
+    $("singleBox").hidden   = on;
+    $("multiBox").hidden    = !on;
+    $("multiResult").hidden = !on;
+    document.querySelector(".result-col").hidden = on;
+    document.body.classList.toggle("multi", on);
+    if(on){ calcMulti(); } else { calc(); }
+  }
+
+  /* 把輸入文字拆成 [{name, cost}] */
+  function parseLines(txt){
+    /* 先還原千分位（1,200 → 1200），再把逗號當分隔符 */
+    var t = txt.replace(/(\d),(?=\d{3}(\D|$))/g, "$1");
+    var out = [];
+    t.split(/[\n;；、,，]+/).forEach(function(raw){
+      var line = raw.trim();
+      if(!line) return;
+      var m = line.match(/^(.*?)(-?[\d.]+)\s*$/);
+      if(!m){ out.push({name: line, cost: NaN}); return; }
+      var v = parseFloat(m[2]);
+      out.push({
+        name: m[1].replace(/[:：\s]+$/, "").trim(),
+        cost: v
+      });
+    });
+    return out;
+  }
+
+  function calcMulti(){
+    var r = state.cur === "TWD" ? 1 : parseFloat(rate.value);
+    var m = parseFloat(margin.value) / 100;
+    var f = parseFloat(fee.value) / 100;
+    var host = $("multiTable");
+    var err  = $("errBox");
+    err.innerHTML = "";
+
+    var rows = parseLines($("multiInput").value);
+    if(!rows.length){
+      host.innerHTML = '<p class="mempty">在上面輸入成本，一行一筆。</p>';
+      window.__quoteAll = "";
+      return;
+    }
+
+    var denom = 1 - f * (1 + m);
+    if(!isFinite(r) || !isFinite(m) || !isFinite(f) || r <= 0 || denom <= 0){
+      host.innerHTML = '<p class="mempty">匯率或費用率的數字有問題，先檢查上面的設定。</p>';
+      window.__quoteAll = "";
+      return;
+    }
+
+    var step = ROUND[state.round].step;
+    var sym  = CUR[state.cur].sym;
+    var dec  = CUR[state.cur].dec;
+    var sumSell = 0, sumProfit = 0, prices = [], ok = 0;
+
+    var html = '<table class="mtable"><thead><tr>' +
+               '<th>品項</th><th>成本</th><th>售價</th><th>利潤</th>' +
+               '</tr></thead><tbody>';
+
+    rows.forEach(function(row, i){
+      var name = row.name || ("第 " + (i + 1) + " 筆");
+      if(!isFinite(row.cost) || row.cost <= 0){
+        html += '<tr class="mrow-bad"><td>' + esc(name) +
+                '</td><td colspan="3">看不懂這行的數字</td></tr>';
+        return;
+      }
+      var costTwd = row.cost * r;
+      var exact   = costTwd * (1 + m) / denom;
+      var final   = step > 0 ? Math.ceil(exact / step) * step : Math.round(exact);
+      var profit  = final - final * f - costTwd;
+
+      sumSell += final; sumProfit += profit; ok++;
+      prices.push("$" + nt(final));
+
+      html += '<tr><td>' + esc(name) + '</td>' +
+              '<td>' + sym + nt(row.cost, dec) + '</td>' +
+              '<td class="sell" data-p="' + final + '" title="點一下複製">' + nt(final) + '</td>' +
+              '<td class="prof">' + nt(profit) + '</td></tr>';
+    });
+
+    if(ok > 1){
+      html += '<tr class="total"><td>合計 ' + ok + ' 筆</td><td></td>' +
+              '<td>' + nt(sumSell) + '</td>' +
+              '<td class="prof">' + nt(sumProfit) + '</td></tr>';
+    }
+    html += '</tbody></table>';
+    host.innerHTML = html;
+    window.__quoteAll = prices.join("\n");
+
+    /* 點單列售價即複製該筆 */
+    Array.prototype.forEach.call(host.querySelectorAll("td.sell"), function(td){
+      td.addEventListener("click", function(){
+        copyText("$" + nt(parseFloat(td.getAttribute("data-p"))));
+        var old = td.textContent;
+        td.textContent = "已複製";
+        setTimeout(function(){ td.textContent = old; }, 900);
+      });
+    });
+  }
+
+  function esc(t){
+    return String(t).replace(/[&<>"]/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];
+    });
+  }
+
+  $("multiInput").addEventListener("input", calcMulti);
+
+  $("copyAllBtn").addEventListener("click", function(){
+    var btn = this;
+    if(!window.__quoteAll) return;
+    copyText(window.__quoteAll);
+    btn.textContent = "已複製 ✓";
+    setTimeout(function(){ btn.textContent = "複製全部售價"; }, 1600);
+  });
+
+  /* 手機：明細開合 */
+  (function(){
+    var btn = $("toggleBtn"), panel = $("detail");
+    btn.addEventListener("click", function(){
+      var open = panel.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  })();
+
+  function copyText(txt, done){
+    done = done || function(){};
+    function fallback(){
+      var ta = document.createElement("textarea");
+      ta.value = txt;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try{ document.execCommand("copy"); done(); }catch(e){}
+      document.body.removeChild(ta);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done, fallback);
+    } else { fallback(); }
+  }
+
+  $("copyBtn").addEventListener("click", function(){
+    var btn = this;
+    if(!window.__quote){ return; }
+    copyText(window.__quote, function(){
+      btn.textContent = "已複製 ✓";
+      setTimeout(function(){ btn.textContent = "複製報價"; }, 1600);
+    });
+  });
+
+  calc();
+  if(AUTO_RATE){ fetchRates(); } else { initFixed(); }
+})();
+</script>
+</body>
+</html>
